@@ -4,97 +4,107 @@ const PostController = require('../controllers/post.controller');
 
 describe('Post controller', () => {
 
-    // Setup the responses
+    // default request object
     let req = {
         body: {
             author: 'stswenguser',
-            title: 'My first test post',
+            title: 'First test post',
             content: 'Random content'
         }
     };
 
+    // default variables
     let error = new Error({ error: 'Some error message' });
     let res = {};
     let expectedResult;
 
 
-    // create
+
+    // test case: create post
     describe('create', () => {
+
+        // default variables
         var createPostStub;
 
+        // executed before every test case
         beforeEach(() => {
-            // before every test case setup first
             res = {
                 json: sinon.spy(),
                 status: sinon.stub().returns({ end: sinon.spy() })
             };
         });
-
+        // executed after every test case
         afterEach(() => {
-            // executed after the test case
             createPostStub.restore();
         });
 
-
+        // intended behavior
         it('should return the created post object', () => {
 
-            // Arrange
+            // model request
+            req = {
+                body: {
+                    author: 'stswenguser',
+                    title: 'First test post',
+                    content: 'Random content'
+                }
+            };
+            // arrange
             expectedResult = {
-                _id: '507asdghajsdhjgasd',
-                title: 'My first test post',
+                _id: '200200',
+                title: 'First test post',
                 content: 'Random content',
                 author: 'stswenguser',
                 date: Date.now()
             };
 
+            // stub
             createPostStub = sinon.stub(PostModel, 'createPost').yields(null, expectedResult);
-
-            // Act
+            // act
             PostController.create(req, res);
-
-            // Assert
+            // assert
             sinon.assert.calledWith(PostModel.createPost, req.body);
             sinon.assert.calledWith(res.json, sinon.match({ title: req.body.title }));
             sinon.assert.calledWith(res.json, sinon.match({ content: req.body.content }));
             sinon.assert.calledWith(res.json, sinon.match({ author: req.body.author }));
-
         });
 
-
-        // Error Scenario
+        // unintended behavior (error scenario)
         it('should return status 500 on server error', () => {
-            // Arrange
+            // arrange
             createPostStub = sinon.stub(PostModel, 'createPost').yields(error);
-
-            // Act
+            // act
             PostController.create(req, res);
-
-            // Assert
+            // assert
             sinon.assert.calledWith(PostModel.createPost, req.body);
             sinon.assert.calledWith(res.status, 500);
             sinon.assert.calledOnce(res.status(500).end);
         });
     });
 
+    // test case: update post
     describe('update', () => {
-      var updatePostStub;
+
+        // default variables
+        var updatePostStub;
       
-      beforeEach(() => {
-        // before every test case setup first
-          res = {
-              json: sinon.spy(),
-              status: sinon.stub().returns({ end: sinon.spy() })
-          };
-      });
+        // executed before every test case
+        beforeEach(() => {
+            res = {
+                json: sinon.spy(),
+                status: sinon.stub().returns({ end: sinon.spy() })
+            };
+        });
+        // executed after every test case
+        afterEach(() => {
+            // executed after the test case
+            updatePostStub.restore();
+        });
 
-      afterEach(() => {
-          // executed after the test case
-          updatePostStub.restore();
-      });
+        // intended behavior
+        it('should update the post object', () => {
 
-
-      it('should return the updated post object', () => {
-
+            // model request
             req = {
                 body: {
                     author: 'stswenguser',
@@ -102,44 +112,41 @@ describe('Post controller', () => {
                     content: 'Random content'
                 }
             };
-          // Arrange
+            // arrange
             expectedResult = {
-                _id: '507asdghajsdhjgasd',
+                _id: '200200',
                 title: 'Updated my first test post',
                 content: 'Random content',
                 author: 'stswenguser',
                 date: Date.now()
             };
 
-          updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
+            // stub
+            updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
+            // act
+            PostController.update(req, res);
+            // assert
+            sinon.assert.calledWith(PostModel.updatePost, req.body);
+            sinon.assert.calledWith(res.json, sinon.match({ title: req.body.title }));
+            sinon.assert.calledWith(res.json, sinon.match({ content: req.body.content }));
+            sinon.assert.calledWith(res.json, sinon.match({ author: req.body.author }));
+        });
 
-          // Act
-          PostController.update(req, res);
-
-          // Assert
-          sinon.assert.calledWith(PostModel.updatePost, req.body);
-          sinon.assert.calledWith(res.json, sinon.match({ title: req.body.title }));
-          sinon.assert.calledWith(res.json, sinon.match({ content: req.body.content }));
-          sinon.assert.calledWith(res.json, sinon.match({ author: req.body.author }));
-      });
-
-
-      // Error Scenario
-      it('should return status 500 on server error', () => {
-          // Arrange
-          updatePostStub = sinon.stub(PostModel, 'updatePost').yields(error);
-
-          // Act
-          PostController.update(req, res);
-
-          // Assert
-          sinon.assert.calledWith(PostModel.updatePost, req.body);
-          sinon.assert.calledWith(res.status, 500);
-          sinon.assert.calledOnce(res.status(500).end);
-      });
+        // unintended behavior (error scenario)
+        it('should return status 500 on server error', () => {
+            // arrange
+            updatePostStub = sinon.stub(PostModel, 'updatePost').yields(error);
+            // act
+            PostController.update(req, res);
+            // assert
+            sinon.assert.calledWith(PostModel.updatePost, req.body);
+            sinon.assert.calledWith(res.status, 500);
+            sinon.assert.calledOnce(res.status(500).end);
+        });
 
     });
 
+    // test case: find post
     describe('findPost', () => {
 
     })
