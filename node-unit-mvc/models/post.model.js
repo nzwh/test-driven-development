@@ -27,5 +27,9 @@ exports.updatePost = (obj, next) => {
 }
 
 exports.findPost = (obj, next) => {
+    const post = new Post(obj);
 
+    post.findOne(function(err, post) {
+        next(err, post)
+    })
 }

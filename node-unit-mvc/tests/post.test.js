@@ -101,7 +101,7 @@ describe('Post controller', () => {
         });
 
         // intended behavior
-        it('should update the post object', () => {
+        it('should return the updated post object', () => {
 
             // model request
             req = {
