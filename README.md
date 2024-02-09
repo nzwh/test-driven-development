@@ -11,6 +11,7 @@ During the development of the project, the developers encountered a few challeng
 ### Requirements
 * Install [NodeJS & npm](https://www.npmjs.com/get-npm)
 * Navigate to the directory: `cd node-unit-mvc`
+* Install the dependencies: `npm install`
 
 ### Developers
 * [@nzwh](https://github.com/nzwh)
