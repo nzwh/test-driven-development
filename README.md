@@ -1,5 +1,4 @@
 # Test-Driven Development with Jest
----
 
 ### Introduction
 For this assignment, the chosen project to simulate test-driven development on was the 'node-unit-mvc' project. The project is a simple MVC framework for Node.js, and the goal was to mock the database connection with `mongodb` and `mongoose`. As per requirement, two developers will take turns in writing the test and the implementation, until the project is completed. 
@@ -15,7 +14,5 @@ During the development of the project, the developers encountered a few challeng
 ### Developers
 * [@nzwh](https://github.com/nzwh)
 * [@shiopao](https://github.com/shiopao)
-
----
 
 `TDD with Jest Assignment for STSWENG Y3T2.`
