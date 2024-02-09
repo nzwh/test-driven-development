@@ -3,6 +3,7 @@ const PostModel = require('../models/post.model');
 const PostController = require('../controllers/post.controller');
 
 describe('Post controller', () => {
+
     // Setup the responses
     let req = {
         body: {
@@ -13,12 +14,11 @@ describe('Post controller', () => {
     };
 
     let error = new Error({ error: 'Some error message' });
-
     let res = {};
-
     let expectedResult;
 
-    
+
+    // create
     describe('create', () => {
         var createPostStub;
 
@@ -37,6 +37,7 @@ describe('Post controller', () => {
 
 
         it('should return the created post object', () => {
+
             // Arrange
             expectedResult = {
                 _id: '507asdghajsdhjgasd',
@@ -93,11 +94,22 @@ describe('Post controller', () => {
 
 
       it('should return the updated post object', () => {
+
+            req = {
+                body: {
+                    author: 'stswenguser',
+                    title: 'Updated my first test post',
+                    content: 'Random content'
+                }
+            };
           // Arrange
-          expectedResult = {
-              title: 'Edited post',
-              content: 'Edited content'
-          };
+            expectedResult = {
+                _id: '507asdghajsdhjgasd',
+                title: 'Updated my first test post',
+                content: 'Random content',
+                author: 'stswenguser',
+                date: Date.now()
+            };
 
           updatePostStub = sinon.stub(PostModel, 'updatePost').yields(null, expectedResult);
 
@@ -108,6 +120,7 @@ describe('Post controller', () => {
           sinon.assert.calledWith(PostModel.updatePost, req.body);
           sinon.assert.calledWith(res.json, sinon.match({ title: req.body.title }));
           sinon.assert.calledWith(res.json, sinon.match({ content: req.body.content }));
+          sinon.assert.calledWith(res.json, sinon.match({ author: req.body.author }));
       });
 
 
