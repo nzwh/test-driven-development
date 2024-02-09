@@ -202,7 +202,7 @@ describe('Post controller', () => {
         });
     })
 
-        // test case: find post
+    // test case: find post
     describe('findPost', () => {
         
         // default variables
@@ -291,18 +291,18 @@ describe('Post controller', () => {
                     date: Date.now()
                 },
                 {
-                  _id: '200201',
-                  title: 'Second test post',
-                  content: 'Random content',
-                  author: 'stswenguser',
-                  date: Date.now()
+                    _id: '200201',
+                    title: 'Second test post',
+                    content: 'Random content',
+                    author: 'stswenguser',
+                    date: Date.now()
                 },
                 {
-                  _id: '200202',
-                  title: 'Third test post',
-                  content: 'Random content',
-                  author: 'stswenguser',
-                  date: Date.now()
+                    _id: '200202',
+                    title: 'Third test post',
+                    content: 'Random content',
+                    author: 'stswenguser',
+                    date: Date.now()
                 }
             ];
 
