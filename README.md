@@ -9,7 +9,8 @@ This project simulates a real-world scenario where a developer is tasked to writ
 During the development of the project, the developers encountered a few challenges. The first challenge was understanding the structure of the project. The project was structured in a way that was unfamiliar to the developers, and it took some time to understand the structure. The second challenge was understanding how to use jest and sinon. Both developers had no prior experience with jest and sinon, and it took some time to understand how to use them. However, after some time, both developers were able to understand how to use jest and sinon, and were able to write tests for the project.
 
 ### Requirements
-* [NodeJS & npm](https://www.npmjs.com/get-npm)
+* Install [NodeJS & npm](https://www.npmjs.com/get-npm)
+* Navigate to the directory: `cd node-unit-mvc`
 
 ### Developers
 * [@nzwh](https://github.com/nzwh)
