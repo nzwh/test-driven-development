@@ -25,3 +25,7 @@ exports.updatePost = (obj, next) => {
         next(err, post)
     }) 
 }
+
+exports.findPost = (obj, next) => {
+
+}

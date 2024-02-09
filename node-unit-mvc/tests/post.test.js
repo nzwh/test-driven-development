@@ -97,7 +97,6 @@ describe('Post controller', () => {
         });
         // executed after every test case
         afterEach(() => {
-            // executed after the test case
             updatePostStub.restore();
         });
 
@@ -108,14 +107,14 @@ describe('Post controller', () => {
             req = {
                 body: {
                     author: 'stswenguser',
-                    title: 'Updated my first test post',
+                    title: 'Updated first test post',
                     content: 'Random content'
                 }
             };
             // arrange
             expectedResult = {
                 _id: '200200',
-                title: 'Updated my first test post',
+                title: 'Updated first test post',
                 content: 'Random content',
                 author: 'stswenguser',
                 date: Date.now()
@@ -143,11 +142,63 @@ describe('Post controller', () => {
             sinon.assert.calledWith(res.status, 500);
             sinon.assert.calledOnce(res.status(500).end);
         });
-
     });
 
     // test case: find post
     describe('findPost', () => {
+        
+        // default variables
+        var findPostStub;
+      
+        // executed before every test case
+        beforeEach(() => {
+            res = {
+                json: sinon.spy(),
+                status: sinon.stub().returns({ end: sinon.spy() })
+            };
+        });
+        // executed after every test case
+        afterEach(() => {
+            findPostStub.restore();
+        });
 
+        // intended behavior
+        it('should return the found post object', () => {
+
+            // model request
+            req = {
+                body: {
+                    title: 'First test post',
+                }
+            };
+            // arrange
+            expectedResult = {
+                _id: '200200',
+                title: 'First test post',
+                content: 'Random content',
+                author: 'stswenguser',
+                date: Date.now()
+            };
+
+            // stub
+            findPostStub = sinon.stub(PostModel, 'findPost').yields(null, expectedResult);
+            // act
+            PostController.findPost(req, res);
+            // assert
+            sinon.assert.calledWith(PostModel.findPost, req.body);
+            sinon.assert.calledWith(res.json, sinon.match({ title: req.body.title }));
+        });
+
+        // unintended behavior (error scenario)
+        it('should return status 500 on server error', () => {
+            // arrange
+            findPostStub = sinon.stub(PostModel, 'findPost').yields(error);
+            // act
+            PostController.findPost(req, res);
+            // assert
+            sinon.assert.calledWith(PostModel.findPost, req.body);
+            sinon.assert.calledWith(res.status, 500);
+            sinon.assert.calledOnce(res.status(500).end);
+        });
     })
 });
